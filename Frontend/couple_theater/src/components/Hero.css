@@ -1,0 +1,64 @@
+.Hero{
+    height: 100vh;
+    width:100vw;
+    background-color: hsl(349, 61%, 93%);
+    margin: 0;
+    padding: 0;
+    display:flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    justify-content: space-between;
+}
+.hero2{
+    margin-top: 15vh;
+    background-color: hsl(349, 61%, 93%);
+    width: 50vw;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.hero2 img{
+    
+    height: 100%;
+    object-fit: contain;   /* use cover if you want full fill */
+    border:10px solid hsl(349, 61%, 93%) ;
+    border-radius:50px;
+
+}
+.content{
+    padding-left: 20px;
+    color:black;
+    left:0;
+    width:50%;
+    line-height: 1.2;
+}
+.content h3{
+    background-color: pink;
+    border-radius: 10px;
+    width:max-content;
+}
+
+.content p{
+    color: grey;
+    padding:20px 0px;
+}
+.watchbutton{
+    background-color: #1F5F99;
+}
+.learnmore{
+    background-color: #C63A3A;
+}
+
+
+ul{
+    display:flex;
+    justify-items: center;
+}
+ul li{
+    list-style: none;
+    margin:10px
+}

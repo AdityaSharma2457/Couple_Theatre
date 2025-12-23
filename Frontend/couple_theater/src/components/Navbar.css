@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+
+.box{
+    display:flex;
+    justify-content:space-between;
+    background-color: white;
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    overflow-x: hidden;
+    color: black;
+
+}
+ul{
+    display:flex;
+    justify-items: center;
+}
+ul li{
+    list-style: none;
+    margin:10px
+}
+.home{
+    background-color:white;
+    color:black;
+}
+.logo-name{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.Login{
+    background-color: #1F5F99;
+}
+.SignUp{
+    background-color: #C63A3A;
+}

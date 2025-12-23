@@ -1,0 +1,23 @@
+.signup{
+    background-color: hsl(349, 61%, 93%);
+    height:100vh;
+    width:100vw;
+    color: black;
+    overflow: hidden;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.registform{
+    background-color: white;
+    height: 80vh;
+    width: 50vw;
+    border: 2px solid white;
+    border-radius: 40px;
+}
+.regist img{
+    height:100vh;
+    
+    
+}
