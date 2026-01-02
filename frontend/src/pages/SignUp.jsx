@@ -4,20 +4,23 @@ import { useFormState } from 'react-dom';
 import {Link} from 'react-router-dom'
 
 const SignUp = () => {
+const [username ,setusername]=useState("")
 const [email ,setEmail] =useState("");
 const [password,setPassword] =useState("");
 const [Confirmpassword,setConfirmpassword] =useState("");
   
 const handlesubmit=(e)=>{
-  e.preventDefault()
-  if( Confirmpassword===password){
-    pass
-
-  }
-  else{
-    pass
+    fetch("http://127.0.0.1:5000/api/auth/register",{
+    method:"POST",
+    headers:{
+      "application-type":"application/json"
+    },
+    body: JSON.stringify({"username":username,
+      "email":email,"password":password
+    })
+  }).then(res=>res.json())
+    .then(data=> {console.log(data)})
     
-  }
 }
   return (
     <div className='login'>
@@ -36,6 +39,8 @@ const handlesubmit=(e)=>{
             </div>
             <form onSubmit={handlesubmit}>
               <div className="inputs">
+              <input type="username" placeholder='Enter username' value={username} onChange={(e)=>{setusername(e.target.value)}} required/><br />
+
                 <input type="email" placeholder='Enter Email ' value={email} onChange={(e)=>{setEmail(e.target.value)}} required/><br />
 
                 <input type="password" placeholder="Enter password" value={password} onChange={(e)=>{setPassword(e.target.value)}} required/>
