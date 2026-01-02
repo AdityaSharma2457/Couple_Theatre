@@ -9,19 +9,29 @@ const [email ,setEmail] =useState("");
 const [password,setPassword] =useState("");
 const [Confirmpassword,setConfirmpassword] =useState("");
   
-const handlesubmit=(e)=>{
-    fetch("http://127.0.0.1:5000/api/auth/register",{
-    method:"POST",
-    headers:{
-      "application-type":"application/json"
+const handlesubmit = async (e) => {
+  e.preventDefault();
+
+  const res = await fetch("http://127.0.0.1:5000/api/auth/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
     },
-    body: JSON.stringify({"username":username,
-      "email":email,"password":password
+    body: JSON.stringify({
+      username,
+      email,
+      password
     })
-  }).then(res=>res.json())
-    .then(data=> {console.log(data)})
-    
-}
+  });
+
+  const data = await res.json();
+  console.log(data);
+
+  if (res.ok) {
+    // auto-login or redirect
+  }
+};
+
   return (
     <div className='login'>
         <div className="box1">

@@ -5,21 +5,26 @@ import {Link} from 'react-router-dom'
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handlesubmit=(e)=>{
-    console.log("logged in succesfully")
+  const handlesubmit = async (e) => {
+  e.preventDefault();   // 🔥 THIS WAS MISSING
 
-    // login fetching 
-  fetch("http://127.0.0.1:5000/api/auth/login",{
-  method : "POST",
-  headers :{
-  "content-type":"application/json"
-  },
-  body:JSON.stringify({"email":email,"password":password})
+  const res = await fetch("http://127.0.0.1:5000/api/auth/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ email, password })
+  });
 
-  }).then(res=>res.json())
-    .then(data=>{console.log(data)})
-    localStorage.setItem("refresh-Token",data.refresh_token)
+  const data = await res.json();
+  console.log(data);
+
+  if (res.ok) {
+    localStorage.setItem("accessToken", data.access_token);
+    localStorage.setItem("refreshToken", data.refresh_token);
   }
+};
+
   
   
 
