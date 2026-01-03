@@ -27,7 +27,18 @@ ul li{
 .home{
     background-color:white;
     color:black;
+    transition: 0.3s ease-in-out ;
+
 }
+.home:hover {
+color: rgb(61, 79, 88);
+background-color: rgb(255, 255, 255);
+border: 1px solid rgb(93, 108, 116);
+box-shadow: rgb(0 0 0 / 30%) 0px 4px 4px, rgb(231 238 236) 0px 0px 0px 3px;
+}
+
+                    
+                
 .logo-name{
     display: flex;
     flex-direction: row;
@@ -35,7 +46,27 @@ ul li{
 }
 .Login{
     background-color: #1F5F99;
+    transition: 0.3s ease;
 }
 .SignUp{
     background-color: #C63A3A;
+    transition: 0.3s ease;
+
+}
+.Login:hover {
+    box-shadow: 4px 4px 0 #000;
+    transform: translate(-4px,-4px);
+                        
+}
+.Login:focus-visible{
+    outline-offset: 1px;
+}
+
+.SignUp:hover {
+    box-shadow: 4px 4px 0 #000;
+    transform: translate(-4px,-4px);
+                        
+}
+.SignUp:focus-visible{
+    outline-offset: 1px;
 }

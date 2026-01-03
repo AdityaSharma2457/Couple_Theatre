@@ -5,7 +5,8 @@ from routes.protected_route import protected_bp
 from extensions.jwt import init_jwt
 from extensions.db import init_db
 from config import Config
-
+from dotenv import load_dotenv
+load_dotenv()
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)

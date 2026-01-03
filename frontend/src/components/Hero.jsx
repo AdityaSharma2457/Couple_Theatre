@@ -3,15 +3,55 @@ import "./Hero.css"
 const Hero = () => {
   return (
     <div className='Hero'>
+
+<div class="snowflakes" aria-hidden="true">
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+</div>
+
       <div className="content">
-        <h3>❤️made for couples</h3>
-        <h1>Watch movies together,<br />wherever you are</h1>
-        <p>create your private theatre room and sync up with your partner. <br />distance does not mean you can't enjoy movie nights together anymore. </p>
+        <h3 className='corinthia-bold'>❤️made for couples</h3>
+        <h1 className='corinthia-bold'>Watch movies together,<br />wherever you are</h1>
+        <p className='corinthia-regular'>create your private theatre room and sync up with your partner. <br />distance does not mean you can't enjoy movie nights together anymore. </p>
         <div className="buttons">
           
 <ul>
-  <li><button className='watchbutton'>start watching</button></li>
-  <li><button className='learnmore'>learn more</button></li>
+  <li><button className='watchbutton corinthia-regular'>start watching</button></li>
+  <li><button className='learnmore corinthia-regular'>learn more</button></li>
 </ul>
 
         </div>

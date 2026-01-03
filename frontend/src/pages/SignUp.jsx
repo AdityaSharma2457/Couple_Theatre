@@ -28,37 +28,78 @@ const handlesubmit = async (e) => {
   console.log(data);
 
   if (res.ok) {
-    // auto-login or redirect
+    alert("you are registered successfully!!")
+  }
+  else{
+    alert("already have a user")
   }
 };
 
   return (
     <div className='login'>
+      <div class="snowflakes" aria-hidden="true">
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+  <div class="snowflake">
+    <div class="inner">❅</div>
+  </div>
+</div>
         <div className="box1">
             <img src="Ghibli_Cozy_Screen_Couple.png" alt="image" />
         </div>
         <div className="box2">
             <div className="headinglogin">
                 <img src="colorful-theatrical-masks-representing-comedy-and-drama-symbolizing-the-dual-expressions-in-performing-arts-vibrant-and-artistic-design-png.png" alt="logo" width="100px"/>
-                <h3>Couple Theatre</h3>
+                <h3 className='corinthia-bold'>Couple Theatre</h3>
             </div>
             <br />
             <div className="headinglogin2">
-                <h2>Create New Account </h2>
+                <h2 className='corinthia-bold'>Create New Account </h2>
                     <p></p>
             </div>
             <form onSubmit={handlesubmit}>
               <div className="inputs">
-              <input type="username" placeholder='Enter username' value={username} onChange={(e)=>{setusername(e.target.value)}} required/><br />
+              <input className='corinthia-regular' type="username" placeholder='Enter username' value={username} onChange={(e)=>{setusername(e.target.value)}} required/>
 
-                <input type="email" placeholder='Enter Email ' value={email} onChange={(e)=>{setEmail(e.target.value)}} required/><br />
+                <input className='corinthia-regular'type="email" placeholder='Enter Email ' value={email} onChange={(e)=>{setEmail(e.target.value)}} required/>
 
-                <input type="password" placeholder="Enter password" value={password} onChange={(e)=>{setPassword(e.target.value)}} required/>
-                 <input type="password" placeholder="Confirm password" value={Confirmpassword} onChange={(e)=>{setConfirmpassword(e.target.value)}}  required minLength={9} maxLength={12}/>
+                <input className='corinthia-regular' type="password" placeholder="Enter password" value={password} onChange={(e)=>{setPassword(e.target.value)}} required/>
+                 <input className='corinthia-regular' type="password" placeholder="Confirm password" value={Confirmpassword} onChange={(e)=>{setConfirmpassword(e.target.value)}}  required minLength={9} maxLength={12}/>
 
             </div>
-            <button className='start' type='submit' >Submit & Proceed</button>
-            <br /><Link to="/login"> Already a user ?</Link>
+            <button className='corinthia-regular start' type='submit' >Submit & Proceed</button>
+            <br /><Link to="/login" className='corinthia-regular'> Already a user ?</Link>
             </form>
             <br />
             
