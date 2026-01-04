@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import  "./SignUp.css"
 import { useFormState } from 'react-dom';
 import {Link} from 'react-router-dom'
-
+import Popup from '../components/Popup';
+import { useNavigate } from 'react-router-dom';
 const SignUp = () => {
+  const Navigate = useNavigate()
+const [rpopup,setrpopup]=useState(false)
 const [username ,setusername]=useState("")
 const [email ,setEmail] =useState("");
 const [password,setPassword] =useState("");
@@ -29,6 +32,7 @@ const handlesubmit = async (e) => {
 
   if (res.ok) {
     alert("you are registered successfully!!")
+    setrpopup(true)
   }
   else{
     alert("already have a user")
@@ -75,6 +79,7 @@ const handlesubmit = async (e) => {
     <div class="inner">❅</div>
   </div>
 </div>
+      {rpopup && <Popup message={"you are registered successfully!!"} onclose={()=>{Navigate("/Login")}}/>}
         <div className="box1">
             <img src="Ghibli_Cozy_Screen_Couple.png" alt="image" />
         </div>
