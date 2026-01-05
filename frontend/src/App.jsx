@@ -16,7 +16,7 @@ function App() {
     <Navbar/>
     
       <Routes>
-        <Route path="/Createjoin" element={<Createjoin/>}></Route>
+        <Route path="/Createjoin" element={ <Protectedrout><Createjoin/></Protectedrout>}></Route>
         <Route path="/" element={<Hero />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/login" element={<Login />} />

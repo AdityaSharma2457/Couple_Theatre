@@ -40,6 +40,7 @@ html, body {
 /* COMMON CARD STYLES */
 .dibba1,
 .dibba2 {
+  transition: 0.3s ease-in-out;
     margin: 20px;
   background: #f5fbff;
   width: 260px;
@@ -47,7 +48,14 @@ html, body {
   border-radius: 18px;
   padding: 1.5rem;
   display: flex;
-  flex-direction: column;
+  flex-direction: column;}
+
+  .dibba1:hover,
+.dibba2:hover{
+  transform: scale(1.1);
+  border: 1px solid rgb(93, 108, 116);
+box-shadow: rgb(0 0 0 / 30%) 4px 4px 4px, rgb(231 238 236) 4px 4px 4px 3px;
+}
 
 .join{
     margin-top: 40px;
