@@ -76,7 +76,7 @@ const Login = () => {
     <div class="inner">❅</div>
   </div>
 </div>
-    {successpopup && <Popup message="you are logged in successfully !!" onclose={()=>{Navigate("/Createjoin")}} />}
+    {successpopup && <Popup cover={"✅Success"}message="you are logged in successfully !!" onclose={()=>{Navigate("/Createjoin")}} />}
         <div className="box1">
             <img src="Gemini_Generated_Image_snitxcsnitxcsnit.png" alt="image" />
         </div>

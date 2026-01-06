@@ -79,7 +79,7 @@ const handlesubmit = async (e) => {
     <div class="inner">❅</div>
   </div>
 </div>
-      {rpopup && <Popup message={"you are registered successfully!!"} onclose={()=>{Navigate("/Login")}}/>}
+      {rpopup && <Popup cover={"✅Success"} message={"you are registered successfully!!"} onclose={()=>{Navigate("/Login")}}/>}
         <div className="box1">
             <img src="Ghibli_Cozy_Screen_Couple.png" alt="image" />
         </div>
