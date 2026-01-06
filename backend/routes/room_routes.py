@@ -42,20 +42,3 @@ def join_room_api():
         "message": "Joined room",
         "roomCode": room_code
     }), 200
-
-
-
-
-
-
-
-
-
-@room_bp.route("/room/debug/join", methods=["POST"])
-def debug_join_room():
-    data = request.get_json()
-    room_code = data.get("roomCode")
-    fake_user_id = ObjectId(data.get("userId"))
-    result = join_room(room_code, fake_user_id)
-
-    return jsonify({"result": result})
