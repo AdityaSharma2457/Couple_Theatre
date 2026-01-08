@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from models.room_model import create_room, join_room, get_room
+from models.room_model import create_room, join_room, get_room, attach_video
 from bson import ObjectId
 
 room_bp = Blueprint("room", __name__)
@@ -18,9 +18,9 @@ def create_room_api():
     }), 201
 
 
-
 @room_bp.route("/room/join", methods=["POST"])
 @jwt_required()
+
 def join_room_api():
     user_id = get_jwt_identity()
     data = request.get_json()
@@ -42,3 +42,13 @@ def join_room_api():
         "message": "Joined room",
         "roomCode": room_code
     }), 200
+
+
+@room_bp.route("/room/<room_code>/video", methods=["POST"])
+@jwt_required()
+
+def attach_video_api(room_code):
+    data = request.get_json()
+    video_id = data.get("videoId")
+    attach_video(room_code, video_id)
+    return jsonify({"message" : "Video attached"})

@@ -44,6 +44,12 @@ def join_room(room_code, user_id):
 def get_room(room_code):
     return mongo.db.rooms.find_one({"roomCode": room_code})
 
+def attach_video(room_code, video_id):
+    mongo.db.rooms.update_one(
+        {"roomCode" : room_code},
+        {"$set" : {"videoUrl" : video_id}}
+    )
+
 # def update_playback(room_code, is_playing, current_time):
 #     mongo.db.rooms.update_one(
 #         {"roomCode": room_code},

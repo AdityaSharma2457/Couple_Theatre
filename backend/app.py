@@ -7,11 +7,15 @@ from dotenv import load_dotenv
 from routes.auth_routes import auth_bp
 from routes.protected_route import protected_bp
 from routes.room_routes import room_bp
+from routes.video_routes import video_bp
 
 load_dotenv()
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
+    print("SECRET_KEY:", app.config.get("SECRET_KEY"))
+    print("JWT_SECRET_KEY:", app.config.get("JWT_SECRET_KEY"))
+
     CORS(app, supports_credentials=True)
 
     init_jwt(app)
@@ -20,6 +24,7 @@ def create_app():
     app.register_blueprint(auth_bp, url_prefix="/api/auth")
     app.register_blueprint(protected_bp, url_prefix="/api")
     app.register_blueprint(room_bp, url_prefix="/api")
+    app.register_blueprint(video_bp, url_prefix="/api")
 
     return app
 

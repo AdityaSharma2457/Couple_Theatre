@@ -80,3 +80,8 @@ logs/
 #################################
 .DS_Store
 Thumbs.db
+
+# Runtime uploads
+uploads/
+backend/uploads/
+backend/uploads/videos/
