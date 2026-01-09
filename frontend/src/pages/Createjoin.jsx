@@ -3,11 +3,16 @@ import './Createjoin.css'
 import Popup from "../components/Popup";
 import {  useNavigate } from 'react-router-dom'
 import Popupform from '../components/Popupform'
+import Upload from '../components/uplaod';
 const Createjoin = () => {
+  const [uploadtrue,setuploadtrue]=useState(false)
+  const[uploadsuccess,setuploadsuccess]=useState(false)
   const [success,setsuccess]=useState(false)
   const Navigate =useNavigate()
   const [key,setkey]=useState("")
   const[popform,setpopform]=useState(false)
+  const [code,setcode]=useState({})
+
   const createtheatre = async (e)=>{
     e.preventDefault()
     let token = localStorage.getItem("accessToken")
@@ -19,11 +24,16 @@ const Createjoin = () => {
     })
     let data = await res.json()
     if (res.ok){
-      Navigate(`/Theatre/${data.roomCode}`)
+      setcode(data.roomCode)
+      setuploadtrue(true)
     }
     else{
       console.log("Error in room creation")
     }
+    if(uploadsuccess){
+      Navigate(`/Theatre/${data.roomCode}`)
+    }
+
   }
   const jointheatre= async (e)=>{
     e.preventDefault()
@@ -35,7 +45,7 @@ const Createjoin = () => {
          "Authorization": `Bearer ${token}`
       },
       body: JSON.stringify({ roomCode: key })    }) 
-    let data = await res.json()
+    const data = await res.json()
     if (res.ok){
       Navigate(`/Theatre/${data.roomCode}`)
     }
@@ -100,6 +110,7 @@ const Createjoin = () => {
       </div>
       {popform && <Popupform setkey={setkey} onclose={(e)=>{jointheatre(e)}} />}
       {success && <Popup cover={"❌ Failed"} message={"room does'nt exists"} onclose={()=>{setsuccess(!success)}}/>}
+      {uploadtrue && <Upload code={code}/>}
     </div>
     
   )
