@@ -7,7 +7,7 @@ const Popupform = ({setkey,onclose}) => {
         <div className="overlay">
       <div className="modal">
         <h2 className='corinthia-bold'>Enter partner's room ID</h2>
-        <p className='corinthia-regular'><input type="text" placeholder='Enter key here'  onChange={(e)=>{setkey(e.target.value)}} /></p>
+        <input type="text" className='corinthia-regular' placeholder='Enter key here'  onChange={(e)=>{setkey(e.target.value)}} />
         <button className="start color" onClick={onclose}>Continue</button>
       </div>
     </div>

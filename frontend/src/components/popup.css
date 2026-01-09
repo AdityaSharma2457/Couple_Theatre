@@ -27,3 +27,22 @@ p{
 .color{
     background-color: rgb(16, 206, 57);
 }
+
+.inputs{
+    display:flex;
+    flex-direction: column;
+}
+.inputs input{
+    color:black;
+    background-color: white;
+    width:30vw;
+    height:40px;
+    margin:5px;
+    border: 0px;
+    border-radius: 10px;
+    padding:5px
+}
+input:focus {
+  outline: 2px solid #ff3b7d;
+  border-color: #ff3b7d;
+}
