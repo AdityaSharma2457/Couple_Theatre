@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import Popup from "../components/Popup";
 import { useLocation } from "react-router-dom";
-import {io} from "socket.io-client";
-// import "./Theatre.css";
+import io from "socket.io-client";
+import "./Theatre.css";
 const SOCKET_URL = "http://localhost:5000"; // change in production
 
 const Theatre = () => {
@@ -218,45 +218,58 @@ const Theatre = () => {
   // =========================
   // UI
   // =========================
-  return (
+  
+ return (
+  <div>
+    {roomkeypopup && (
+      <Popup
+        cover={"✅ room Code"}
+        message={code}
+        onclose={() => setroomkeypopup(false)}
+      />
+    )}
     <div className="theatre">
-      <div>
-        {roomkeypopup && (
-          <Popup
-            cover={"✅ room Code"}
-            message={code}
-            onclose={() => setroomkeypopup(false)}
-          />
-        )}
+    <div className="theatre-layout">
+
+      {/* LEFT SIDE - Movie */}
+      <div className="theatre-left">
+        <video
+          ref={videoRef}
+          className="main-video"
+          src="/api/stream/upload"
+          controls
+          onPlay={() => emitVideoEvent("play")}
+          onPause={() => emitVideoEvent("pause")}
+          onSeeked={() => emitVideoEvent("seek")}
+        />
       </div>
 
-      {/* 🎬 Main Video */}
-      <video
-        ref={videoRef}
-        controls
-        onPlay={() => emitVideoEvent("play")}
-        onPause={() => emitVideoEvent("pause")}
-        onSeeked={() => emitVideoEvent("seek")}
-      >
-        <source src={`/api/video/hls/${roomId}/master.m3u8`} type="application/x-mpegURL" />
-      </video>
+      {/* RIGHT SIDE - Calls */}
+      <div className="theatre-right">
+        <div className="calls">
+          <video className="call-video" ref={myVideoRef} autoPlay muted playsInline />
+          <video className="call-video" ref={partnerVideoRef} autoPlay playsInline />
 
-      {/* 📞 Call Section */}
-      <div className="calls">
-        <video ref={myVideoRef} autoPlay muted playsInline />
-        <video ref={partnerVideoRef} autoPlay playsInline />
+          {!callType && (
+            <div className="btn-box">
+              <button onClick={() => startCall("voice")}>🎙 Voice Call</button>
+              <button onClick={() => startCall("video")}>🎥 Video Call</button>
+            </div>
+          )}
 
-        {!callType && (
-          <>
-            <button onClick={() => startCall("voice")}>🎙 Voice Call</button>
-            <button onClick={() => startCall("video")}>🎥 Video Call</button>
-          </>
-        )}
-
-        {callType && <button onClick={() => endCall(true)}>❌ End Call</button>}
+          {callType && (
+            <button className="end-btn" onClick={() => endCall(true)}>
+              ❌ End Call
+            </button>
+          )}
+        </div>
       </div>
+
     </div>
-  );
+  </div>
+  </div>
+);
+
 };
 
 export default Theatre;
