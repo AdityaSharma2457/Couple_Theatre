@@ -5,6 +5,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+    z-index: 999999; /* ✅ SUPER HIGH */
+
 }
 h2{
     color: black;
@@ -16,6 +18,10 @@ p{
   background: white;
   padding: 25px;
   border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   animation: scaleIn 0.3s ease;
 }

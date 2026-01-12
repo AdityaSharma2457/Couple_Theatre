@@ -218,44 +218,58 @@ const Theatre = () => {
   // =========================
   // UI
   // =========================
-  return (
-    <div className="theatre">
-      <div>
-        {roomkeypopup && (
-          <Popup
-            cover={"✅ room Code"}
-            message={code}
-            onclose={() => setroomkeypopup(false)}
-          />
-        )}
-      </div>
-
-      {/* 🎬 Main Video */}
-      <video
-        ref={videoRef}
-        src="/api/stream/upload"
-        controls
-        onPlay={() => emitVideoEvent("play")}
-        onPause={() => emitVideoEvent("pause")}
-        onSeeked={() => emitVideoEvent("seek")} // ✅ seek sync also
+  
+ return (
+  <div>
+    {roomkeypopup && (
+      <Popup
+        cover={"✅ room Code"}
+        message={code}
+        onclose={() => setroomkeypopup(false)}
       />
+    )}
+    <div className="theatre">
+    <div className="theatre-layout">
 
-      {/* 📞 Call Section */}
-      <div className="calls">
-        <video ref={myVideoRef} autoPlay muted playsInline />
-        <video ref={partnerVideoRef} autoPlay playsInline />
-
-        {!callType && (
-          <>
-            <button onClick={() => startCall("voice")}>🎙 Voice Call</button>
-            <button onClick={() => startCall("video")}>🎥 Video Call</button>
-          </>
-        )}
-
-        {callType && <button onClick={() => endCall(true)}>❌ End Call</button>}
+      {/* LEFT SIDE - Movie */}
+      <div className="theatre-left">
+        <video
+          ref={videoRef}
+          className="main-video"
+          src="/api/stream/upload"
+          controls
+          onPlay={() => emitVideoEvent("play")}
+          onPause={() => emitVideoEvent("pause")}
+          onSeeked={() => emitVideoEvent("seek")}
+        />
       </div>
+
+      {/* RIGHT SIDE - Calls */}
+      <div className="theatre-right">
+        <div className="calls">
+          <video className="call-video" ref={myVideoRef} autoPlay muted playsInline />
+          <video className="call-video" ref={partnerVideoRef} autoPlay playsInline />
+
+          {!callType && (
+            <div className="btn-box">
+              <button onClick={() => startCall("voice")}>🎙 Voice Call</button>
+              <button onClick={() => startCall("video")}>🎥 Video Call</button>
+            </div>
+          )}
+
+          {callType && (
+            <button className="end-btn" onClick={() => endCall(true)}>
+              ❌ End Call
+            </button>
+          )}
+        </div>
+      </div>
+
     </div>
-  );
+  </div>
+  </div>
+);
+
 };
 
 export default Theatre;
