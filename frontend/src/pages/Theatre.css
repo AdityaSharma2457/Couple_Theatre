@@ -1,0 +1,112 @@
+.theatre {
+    margin:100px 0px;
+    width:100vw;
+    height: 100vw;
+  background: #0b0f17;
+  color: white;
+  padding: 18px;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto;
+}
+
+/* ✅ this makes side by side */
+.theatre-layout {
+  display: flex;
+  gap: 18px;
+  width: 100%;
+  align-items: flex-start;
+}
+
+/* LEFT PANEL */
+.theatre-left {
+  flex: 2;
+}
+
+/* RIGHT PANEL */
+.theatre-right {
+  flex: 1;
+  position: sticky;
+  top: 90px; /* keeps call section fixed while scrolling */
+}
+
+/* MOVIE */
+.main-video {
+  width: 100%;
+  height: 520px;
+  border-radius: 16px;
+  background: black;
+  object-fit: contain;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+/* CALLS CARD */
+.calls {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 18px;
+  padding: 14px;
+  display: flex;
+  height:520px;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* CALL VIDEOS */
+.call-video {
+  width: 100%;
+  height: 200px;
+  border-radius: 14px;
+  background: black;
+  object-fit: cover;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+/* BUTTONS */
+.btn-box {
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.calls button {
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.08);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.calls button:hover {
+  background: rgba(255,255,255,0.14);
+  transform: translateY(-1px);
+}
+
+.end-btn {
+  background: rgba(255, 71, 87, 0.18) !important;
+  border: 1px solid rgba(255, 71, 87, 0.5) !important;
+}
+
+.end-btn:hover {
+  background: rgba(255, 71, 87, 0.28) !important;
+}
+
+/* ✅ RESPONSIVE: stack on mobile */
+@media (max-width: 900px) {
+  .theatre-layout {
+    flex-direction: column;
+  }
+
+  .theatre-right {
+    position: static;
+  }
+
+  .main-video {
+    height: 300px;
+  }
+
+  .call-video {
+    height: 180px;
+  }
+}

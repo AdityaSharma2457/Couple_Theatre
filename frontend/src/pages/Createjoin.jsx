@@ -31,7 +31,7 @@ const Createjoin = () => {
       console.log("Error in room creation")
     }
     if(uploadsuccess){
-      Navigate(`/Theatre/${data.roomCode}`)
+      Navigate(`/Theatre?code=${data.roomCode}`)
     }
 
   }
@@ -47,7 +47,7 @@ const Createjoin = () => {
       body: JSON.stringify({ roomCode: key })    }) 
     const data = await res.json()
     if (res.ok){
-      Navigate(`/Theatre/${data.roomCode}`)
+      Navigate(`/Theatre?code=${data.roomCode}`)
     }
     else{
       console.log("room does'nt exists")

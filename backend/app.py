@@ -2,6 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 from extensions.jwt import init_jwt
 from extensions.db import init_db
+from extensions.socket import socketio
 from config import Config
 from dotenv import load_dotenv
 from routes.auth_routes import auth_bp
@@ -28,5 +29,12 @@ def create_app():
 
 app = create_app()
 
+socketio.init_app(app)
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    socketio.run(
+        app,
+        debug=True,
+        host="0.0.0.0",
+        port=5000
+    )

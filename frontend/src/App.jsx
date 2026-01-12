@@ -7,6 +7,7 @@ import SignUp from './pages/SignUp'
 import Createjoin from './pages/Createjoin'
 import Protectedrout from './protectedrout'
 import {Route,Routes,BrowserRouter} from "react-router-dom"
+import Theatre from './pages/Theatre'
 function App() {
 
   return (
@@ -17,6 +18,8 @@ function App() {
     
       <Routes>
         <Route path="/Createjoin" element={ <Protectedrout><Createjoin/></Protectedrout>}></Route>
+        <Route path="/Theatre" element={<Protectedrout><Theatre /></Protectedrout>} />
+
         <Route path="/" element={<Hero />} />
         <Route path="/SignUp" element={<SignUp />} />
         <Route path="/login" element={<Login />} />

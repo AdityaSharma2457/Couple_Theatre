@@ -42,7 +42,10 @@ def join_room(room_code, user_id):
     return "JOINED"
 
 def get_room(room_code):
-    return mongo.db.rooms.find_one({"roomCode": room_code})
+    return mongo.db.rooms.find_one(
+        {"roomCode": room_code},
+        {"_id": 0, "isPlaying": 1, "currentTime": 1}
+    )
 
 def attach_video(room_code, video_id):
     mongo.db.rooms.update_one(
@@ -50,12 +53,19 @@ def attach_video(room_code, video_id):
         {"$set" : {"videoUrl" : video_id}}
     )
 
-# def update_playback(room_code, is_playing, current_time):
-#     mongo.db.rooms.update_one(
-#         {"roomCode": room_code},
-#         {"$set": {
-#             "isPlaying": is_playing,
-#             "currentTime": current_time,
-#             "lastActivity": datetime.utcnow()
-#         }}
-#     )
+def update_playback(room_code, is_playing, current_time):
+    mongo.db.rooms.update_one(
+        {"roomCode": room_code},
+        {"$set": {
+            "isPlaying": is_playing,
+            "currentTime": current_time,
+            "lastActivity": datetime.utcnow()
+        }}
+    )
+
+def get_playback_state(room_code):
+    room = mongo.db.rooms.find_one(
+        {"roomCode": room_code},
+        {"_id": 0, "isPlaying": 1, "currentTime": 1}
+    )
+    return room

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import "./uplaod.css";
 import { useNavigate } from "react-router-dom";
 const Upload = (code) => {
-  const navigate =   useNavigate() 
+  const Navigate =   useNavigate() 
   const [file, setFile] = useState(null);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -80,7 +80,8 @@ const Upload = (code) => {
       if (xhr.status >= 200 && xhr.status < 300) {
         setSuccess("Video uploaded successfully 🎬");
         console.log(code.code)
-                navigate(`/Theatre/${code.code}`)        
+        Navigate(`/Theatre?code=${code.code}`)
+      
 
         setFile(null);
       } else if (xhr.status === 401 || xhr.status === 422) {
