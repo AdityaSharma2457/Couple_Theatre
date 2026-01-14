@@ -22,6 +22,62 @@ const Theatre = () => {
   const peerRef = useRef(null);
 
   const [callType, setCallType] = useState(null); // "voice" | "video"
+  const [videoUrl, setVideoUrl] = useState(null); // video URL from room
+
+  // =========================
+  // Fetch Room Data on Mount
+  // =========================
+  useEffect(() => {
+    if (!roomId) return;
+    
+    const fetchRoomData = async () => {
+      try {
+        const token = localStorage.getItem("accessToken");
+        console.log("Fetching room:", roomId);
+        const res = await fetch(`http://localhost:5000/api/room/${roomId}`, {
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        
+        console.log("Room fetch response:", res.status);
+        if (res.ok) {
+          const room = await res.json();
+          console.log("Room data:", room);
+          if (room.videoUrl) {
+            // Check if video is ready by fetching the master.m3u8
+            const videoId = room.videoUrl;
+            const videoUrl = `http://localhost:5000/api/video/hls/${videoId}/master.m3u8`;
+            
+            // Poll to check if video is ready
+            const checkVideoReady = async () => {
+              try {
+                const videoRes = await fetch(videoUrl);
+                if (videoRes.ok) {
+                  console.log("Setting video URL:", videoUrl);
+                  setVideoUrl(videoUrl);
+                } else {
+                  console.log("Video not ready yet (HLS files still transcoding), retrying in 2s...");
+                  setTimeout(checkVideoReady, 2000);
+                }
+              } catch (err) {
+                console.log("Video not ready yet, retrying in 2s...");
+                setTimeout(checkVideoReady, 2000);
+              }
+            };
+            
+            checkVideoReady();
+          } else {
+            console.log("No videoUrl in room data");
+          }
+        } else {
+          console.error("Room fetch failed:", res.status);
+        }
+      } catch (err) {
+        console.error("Error fetching room data:", err);
+      }
+    };
+    
+    fetchRoomData();
+  }, [roomId]);
 
   // =========================
   // Popup on mount
@@ -233,15 +289,21 @@ const Theatre = () => {
 
       {/* LEFT SIDE - Movie */}
       <div className="theatre-left">
-        <video
-          ref={videoRef}
-          className="main-video"
-          src="/api/stream/upload"
-          controls
-          onPlay={() => emitVideoEvent("play")}
-          onPause={() => emitVideoEvent("pause")}
-          onSeeked={() => emitVideoEvent("seek")}
-        />
+        {videoUrl ? (
+          <video
+            ref={videoRef}
+            className="main-video"
+            src={videoUrl}
+            controls
+            onPlay={() => emitVideoEvent("play")}
+            onPause={() => emitVideoEvent("pause")}
+            onSeeked={() => emitVideoEvent("seek")}
+          />
+        ) : (
+          <div className="no-video">
+            <p>Loading video... This may take a moment while we process your video.</p>
+          </div>
+        )}
       </div>
 
       {/* RIGHT SIDE - Calls */}

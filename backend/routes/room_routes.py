@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from models.room_model import create_room, join_room, get_room, attach_video
 from bson import ObjectId
+from extensions.db import mongo
 
 room_bp = Blueprint("room", __name__)
 
@@ -46,9 +47,37 @@ def join_room_api():
 
 @room_bp.route("/room/<room_code>/video", methods=["POST"])
 @jwt_required()
-
 def attach_video_api(room_code):
     data = request.get_json()
     video_id = data.get("videoId")
+    
+    if not video_id:
+        return jsonify({"error": "videoId is required"}), 400
+    
+    # Check if room exists first
+    room = mongo.db.rooms.find_one({"roomCode": room_code})
+    if not room:
+        print(f"❌ Room not found: {room_code}")
+        return jsonify({"error": f"Room {room_code} not found"}), 404
+    
+    print(f"✅ Attaching video {video_id} to room {room_code}")
     attach_video(room_code, video_id)
-    return jsonify({"message" : "Video attached"})
+    
+    # Verify it was attached
+    updated_room = mongo.db.rooms.find_one({"roomCode": room_code})
+    print(f"✅ Room updated. videoUrl is now: {updated_room.get('videoUrl')}")
+    
+    return jsonify({"message": "Video attached", "videoUrl": updated_room.get('videoUrl')}), 200
+
+
+@room_bp.route("/room/<room_code>", methods=["GET"])
+@jwt_required()
+def get_room_api(room_code):
+    """Get room data including video info"""
+    from models.room_model import get_room_with_video
+    room = get_room_with_video(room_code)
+    
+    if not room:
+        return jsonify({"error": "Room not found"}), 404
+    
+    return jsonify(room), 200

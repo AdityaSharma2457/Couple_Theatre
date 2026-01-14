@@ -50,7 +50,15 @@ def get_room(room_code):
 def attach_video(room_code, video_id):
     mongo.db.rooms.update_one(
         {"roomCode" : room_code},
-        {"$set" : {"videoUrl" : video_id}}
+        {"$set" : {"videoUrl" : video_id, "lastActivity": datetime.utcnow()}}
+    )
+
+
+def get_room_with_video(room_code):
+    """Get full room data including video URL"""
+    return mongo.db.rooms.find_one(
+        {"roomCode": room_code},
+        {"_id": 0}
     )
 
 def update_playback(room_code, is_playing, current_time):

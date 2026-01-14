@@ -73,16 +73,46 @@ const Upload = (code) => {
       }
     };
 
-    xhr.onload = () => {
+    xhr.onload = async () => {
       console.log("STATUS:", xhr.status);
       console.log("RESPONSE:", xhr.responseText);
 
       if (xhr.status >= 200 && xhr.status < 300) {
-        setSuccess("Video uploaded successfully 🎬");
-        console.log(code.code)
-        Navigate(`/Theatre?code=${code.code}`)
-      
+        try {
+          const response = JSON.parse(xhr.responseText);
+          const videoId = response.videoId;
+          
+          // Attach video to room
+          console.log("Attaching video to room:", code.code, "videoId:", videoId);
+          const attachRes = await fetch(
+            `http://127.0.0.1:5000/api/room/${code.code}/video`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+              },
+              body: JSON.stringify({ videoId })
+            }
+          );
 
+          console.log("Attach response status:", attachRes.status);
+          const attachData = await attachRes.json();
+          console.log("Attach response data:", attachData);
+
+          if (attachRes.ok) {
+            setSuccess("Video uploaded successfully 🎬");
+            console.log("✅ Video attached to room:", videoId);
+            setTimeout(() => {
+              Navigate(`/Theatre?code=${code.code}`);
+            }, 500);
+          } else {
+            setError(`Failed to attach video: ${attachData.error}`);
+          }
+        } catch (err) {
+          console.error("Error attaching video:", err);
+          setError("Error processing video");
+        }
         setFile(null);
       } else if (xhr.status === 401 || xhr.status === 422) {
         setError("Authentication failed. Please login again.");
