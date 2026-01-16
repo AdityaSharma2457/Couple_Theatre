@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_cors import CORS
 from dotenv import load_dotenv
+import eventlet
+eventlet.monkey_patch()
 
 from extensions.jwt import init_jwt
 from extensions.db import init_db
