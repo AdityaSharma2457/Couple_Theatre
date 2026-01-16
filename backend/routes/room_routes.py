@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
-from models.room_model import create_room, join_room, get_room, attach_video
+from models.room_model import create_room, join_room, get_room, attach_video, serialize_room, get_room_with_video
 from bson import ObjectId
 from extensions.db import mongo
 
@@ -73,11 +73,8 @@ def attach_video_api(room_code):
 @room_bp.route("/room/<room_code>", methods=["GET"])
 @jwt_required()
 def get_room_api(room_code):
-    """Get room data including video info"""
-    from models.room_model import get_room_with_video
     room = get_room_with_video(room_code)
-    
     if not room:
         return jsonify({"error": "Room not found"}), 404
-    
-    return jsonify(room), 200
+
+    return jsonify(serialize_room(room)), 200

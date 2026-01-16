@@ -77,3 +77,19 @@ def get_playback_state(room_code):
         {"_id": 0, "isPlaying": 1, "currentTime": 1}
     )
     return room
+
+
+def serialize_room(room):
+    if not room:
+        return None
+
+    clean = {}
+    for key, value in room.items():
+        if isinstance(value, ObjectId):
+            clean[key] = str(value)
+        elif isinstance(value, datetime):
+            clean[key] = value.isoformat()
+        else:
+            clean[key] = value
+
+    return clean

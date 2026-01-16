@@ -1,6 +1,6 @@
+import eventlet
 import os
 import uuid
-import threading
 import subprocess
 
 from flask import Blueprint, request, jsonify, send_from_directory, current_app
@@ -40,11 +40,7 @@ def upload_video():
 
     # Start HLS generation in background
     app = current_app._get_current_object()
-    threading.Thread(
-        target=transcode_with_context,
-        args=(app, video_id),
-        daemon=True
-    ).start()
+    eventlet.spawn_n(transcode_with_context, app, video_id)
 
     # IMPORTANT: return immediately
     return jsonify({
@@ -64,35 +60,38 @@ def transcode_to_hls(video_id):
 
     playlist_path = os.path.join(output_dir, "stream.m3u8")
 
-    # 🔥 SPEED-OPTIMIZED FFmpeg COMMAND
     FFMPEG_PATH = os.getenv("FFMPEG_PATH", "ffmpeg")
     cmd = [
-    FFMPEG_PATH,
-    "-y",
-    "-i", input_path,
-    "-c:v", "copy",
-    "-c:a", "copy",
-    "-f", "hls",
-    "-hls_time", "2",
-    "-hls_list_size", "0",
-    "-hls_flags", "independent_segments",
-    playlist_path
-]
+        FFMPEG_PATH,
+        "-y",
+        "-i", input_path,
+        "-c:v", "libx264",
+        "-preset", "veryfast",
+        "-g", "48",
+        "-keyint_min", "48",
+        "-sc_threshold", "0",
+        "-c:a", "aac",
+        "-b:a", "128k",
+        "-hls_time", "2",
+        "-hls_list_size", "0",
+        "-hls_flags", "independent_segments",
+        "-f", "hls",
+        playlist_path
+    ]
 
-    process = subprocess.run(
-    cmd,
-    stdout=subprocess.PIPE,
-    stderr=subprocess.PIPE,
-    text=True,
-    creationflags=subprocess.CREATE_NO_WINDOW  # Windows fix
-)
-
+    process = subprocess.Popen(
+        cmd,
+        stdout=None,   # DO NOT PIPE
+        stderr=None    # DO NOT PIPE
+    )
+    process.wait()
     if process.returncode == 0:
         mark_ready(video_id)
         print(f"[OK] HLS ready for {video_id}")
     else:
         mark_failed(video_id)
-        print(f"[ERROR] FFmpeg failed:\n{process.stderr}")
+        print("[ERROR] FFmpeg failed")
+
 
 
 def transcode_with_context(app, video_id):
