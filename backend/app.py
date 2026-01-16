@@ -34,7 +34,8 @@ socketio.init_app(app)
 if __name__ == "__main__":
     socketio.run(
         app,
-        debug=True,
         host="0.0.0.0",
-        port=5000
+        port=5000,
+        debug=False,          # 🔴 MUST BE FALSE
+        use_reloader=False    # 🔴 ABSOLUTELY REQUIRED
     )
