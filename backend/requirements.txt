@@ -6,3 +6,4 @@ python-dotenv
 flask-pymongo
 eventlet
 bcrypt
+gunicorn
