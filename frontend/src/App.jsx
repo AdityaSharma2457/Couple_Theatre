@@ -5,7 +5,7 @@ import Hero from "./components/Hero"
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import Createjoin from './pages/Createjoin'
-import Protectedrout from './protectedrout'
+import Protectedrout from './Protectedrout'
 import {Route,Routes,BrowserRouter} from "react-router-dom"
 import Theatre from './pages/Theatre'
 function App() {
