@@ -15,7 +15,7 @@ const [Confirmpassword,setConfirmpassword] =useState("");
 const handlesubmit = async (e) => {
   e.preventDefault();
 
-  const res = await fetch("http://127.0.0.1:5000/api/auth/register", {
+  const res = await fetch("https://couple-theatre.onrender.com/api/auth/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
