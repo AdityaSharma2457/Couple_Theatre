@@ -26,7 +26,14 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    CORS(app, supports_credentials=True)
+    CORS(
+    app,
+    resources={r"/api/*": {"origins": [
+        "http://localhost:5173",
+        "https://couple-theatre-c2arjgueq-adityasharma2457s-projects.vercel.app"
+    ]}},
+    supports_credentials=True
+)
 
     init_jwt(app)
     init_db(app)
