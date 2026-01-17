@@ -85,7 +85,7 @@ const Upload = (code) => {
           // Attach video to room
           console.log("Attaching video to room:", code.code, "videoId:", videoId);
           const attachRes = await fetch(
-            `http://127.0.0.1:5000/api/room/${code.code}/video`,
+            `https://couple-theatre.onrender.com/api/room/${code.code}/video`,
             {
               method: "POST",
               headers: {
@@ -133,7 +133,7 @@ const Upload = (code) => {
       setIsLoading(false);
     };
 
-    xhr.open("POST", "http://127.0.0.1:5000/api/video/upload");
+    xhr.open("POST", "https://couple-theatre.onrender.com/api/video/upload");
 
     // 🔥 JWT HEADER (CRITICAL)
     xhr.setRequestHeader("Authorization", `Bearer ${token}`);
