@@ -5,7 +5,7 @@ import io from "socket.io-client";
 import Hls from "hls.js";
 import "./Theatre.css";
 
-const SOCKET_URL = "https://couple-theatre.onrender.com;
+const SOCKET_URL = "https://couple-theatre.onrender.com";
 
 const Theatre = () => {
   const [roomkeypopup, setRoomKeyPopup] = useState(true);
