@@ -5,7 +5,7 @@ import io from "socket.io-client";
 import Hls from "hls.js";
 import "./Theatre.css";
 
-const SOCKET_URL = "http://localhost:5000";
+const SOCKET_URL = "https://couple-theatre.onrender.com/";
 
 const Theatre = () => {
   const [roomkeypopup, setRoomKeyPopup] = useState(true);
@@ -30,7 +30,7 @@ const Theatre = () => {
 
     const fetchRoom = async () => {
       const token = localStorage.getItem("accessToken");
-      const res = await fetch(`http://localhost:5000/api/room/${roomId}`, {
+      const res = await fetch(`https://couple-theatre.onrender.com/api/room/${roomId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -43,7 +43,7 @@ const Theatre = () => {
       // Attach HLS immediately.
       if (room.videoUrl) {
         setVideoUrl(
-          `http://localhost:5000/api/video/hls/${room.videoUrl}/stream.m3u8`
+          `https://couple-theatre.onrender.com/api/video/hls/${room.videoUrl}/stream.m3u8`
         );
       }
     };
