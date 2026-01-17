@@ -16,7 +16,7 @@ const Createjoin = () => {
   const createtheatre = async (e)=>{
     e.preventDefault()
     let token = localStorage.getItem("accessToken")
-    let res = await fetch("http://127.0.0.1:5000/api/room/create",{
+    let res = await fetch("https://couple-theatre.onrender.com/api/room/create",{
       method:"POST",
       headers:{
         "Authorization": `Bearer ${token}`
@@ -38,7 +38,7 @@ const Createjoin = () => {
   const jointheatre= async (e)=>{
     e.preventDefault()
     let token = localStorage.getItem("accessToken")
-    let res = await fetch ("http://127.0.0.1:5000/api/room/join",{
+    let res = await fetch ("https://couple-theatre.onrender.com/api/room/join",{
       method:"POST",
       headers:{
          "Content-Type": "application/json",
