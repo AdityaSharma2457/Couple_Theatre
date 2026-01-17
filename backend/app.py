@@ -32,7 +32,10 @@ def create_app():
         "http://localhost:5173",
         "https://couple-theatre.vercel.app"
     ]}},
-    supports_credentials=True
+    supports_credentials=True,
+        allow_headers=["Content-Type", "Authorization"],
+    expose_headers=["Authorization"],
+    methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 )
 
     init_jwt(app)
