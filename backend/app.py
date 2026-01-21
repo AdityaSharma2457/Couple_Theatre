@@ -27,7 +27,7 @@ def create_app():
     app.config.from_object(Config)
 
     CORS(app)
-
+    print("✅ REGISTERED ROUTES:", app.url_map)
     init_jwt(app)
     init_db(app)
 
