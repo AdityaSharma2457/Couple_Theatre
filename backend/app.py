@@ -31,7 +31,7 @@ def create_app():
     init_jwt(app)
     init_db(app)
 
-    app.register_blueprint(auth_bp, url_prefix="/api")
+    app.register_blueprint(auth_bp, url_prefix="/api/auth")
     app.register_blueprint(protected_bp, url_prefix="/api")
     app.register_blueprint(room_bp, url_prefix="/api")
     app.register_blueprint(video_bp, url_prefix="/api")
