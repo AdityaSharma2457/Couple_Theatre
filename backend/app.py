@@ -26,7 +26,7 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    CORS(app,supports_credentials=True)
+    CORS(app,resources={r"/api/*": {"origins": "*"}},supports_credentials=True)
     print("✅ REGISTERED ROUTES:", app.url_map)
     init_jwt(app)
     init_db(app)
@@ -41,9 +41,11 @@ def create_app():
 
 # 🔴 THESE TWO LINES ARE CRITICAL
 app = create_app()
-socketio.init_app(app, cors_allowed_origins="*")
-
-
+socketio.init_app(
+    app,
+    cors_allowed_origins="*",
+    async_mode="eventlet"
+)
 # 🔴 LOCAL DEV ONLY
 if __name__ == "__main__":
     socketio.run(
