@@ -19,7 +19,8 @@ const Createjoin = () => {
     let res = await fetch("https://couple-theatre.onrender.com/api/room/create",{
       method:"POST",
       headers:{
-        "Authorization": `Bearer ${token}`
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
       }
     })
     let data = await res.json()
