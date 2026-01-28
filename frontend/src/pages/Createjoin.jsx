@@ -17,9 +17,9 @@ const Createjoin = () => {
   const createtheatre = async (e) => {
     e.preventDefault()
     let token = localStorage.getItem("accessToken")
-    let res = await fetch("https://couple-theatre.onrender.com/api/room/create", {
-      method: "POST",
-      headers: {
+    let res = await fetch("https://couple-theatre.onrender.com/api/room/create",{
+      method:"POST",
+      headers:{
         "Authorization": `Bearer ${token}`
       }
     })
